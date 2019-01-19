@@ -1,0 +1,11 @@
+.article-item__title {
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.article-item__title:hover {
+    color: var(--main-theme-color);
+}

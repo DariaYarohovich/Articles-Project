@@ -1,0 +1,8 @@
+.comments__button {
+    padding: 3px 5px;
+    background-color: var(--main-theme-color);
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: 700;
+}

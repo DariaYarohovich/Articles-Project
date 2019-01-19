@@ -1,0 +1,12 @@
+.comment-item {
+    margin-top: 10px;
+}
+
+.comment-item p {
+    margin: 0;
+}
+
+.comment-item__user {
+    margin-bottom: 5px;
+    font-weight: 700;
+}

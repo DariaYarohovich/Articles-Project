@@ -1,34 +1,33 @@
 import React, { Component } from 'react';
-import ArticleList from './components/article-list';
-import UserForm from './components/user-form';
-import Select from 'react-select';
+import ArticleList from './components/Articles/ArticleList';
+import UserForm from './components/UserForm/UserForm';
+import Select from './components/Select/Select';
+import Datepicker from './components/Datepicker/Datepicker';
+
+import './app.css';
 
 class App extends Component {
-    state = {
-        selected: null
+
+    render() {
+        return (
+            <div className="app">
+                <div className="app__header">
+                    <div className="header container">
+                        <Datepicker />
+                        <UserForm />
+                    </div>
+                </div>
+                <div className="app__main">
+                    <div className="main container">
+                        <Select articles={this.props.articles} />
+                        <ArticleList
+                            articles={this.props.articles}
+                        />
+                    </div>
+                </div>
+            </div>
+        );
     }
-  render() {
-    return (
-      <div>
-          <UserForm/>
-          <Select
-              options={this.options}
-              value={this.state.selected}
-              onChange={this.handleSelectChange}
-          />
-          <ArticleList
-              articles={this.props.articles}
-          />
-      </div>
-    );
-  }
-    handleSelectChange = (selected) => this.setState({selected})
-  get options() {
-      return this.props.articles.map(article => ({
-          value: article.id,
-          label: article.title
-      }))
-  }
 }
 
 export default App;

@@ -1,0 +1,23 @@
+.datepicker {
+    display: flex;
+}
+
+.react-datepicker-wrapper:not(:first-child) {
+    margin-left: 20px;
+}
+
+.datepicker__item {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.react-datepicker__day--selected, 
+.react-datepicker__day--in-selecting-range, 
+.react-datepicker__day--in-range {
+    background-color: salmon;
+}
+
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range) {
+    background-color: rgba(250, 128, 114, 0.6);
+}

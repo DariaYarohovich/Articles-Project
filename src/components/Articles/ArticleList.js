@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import Article from './article';
-import accordion from '../decorators/accordion';
+import Article from './ArticleItem/ArticleItem';
+import accordion from '../../decorators/accordion';
+
+import './ArticleList.css';
 
 class ArticleList extends Component{
     render() {
-        return <ul>{this.articles}</ul>;
+        return (
+            <ul className="article-list">{this.articles}</ul>
+        );
     }
 
     get articles() {
@@ -15,7 +19,7 @@ class ArticleList extends Component{
         } = this.props
 
         return articles.map(article => (
-            <li key={article.id}>
+            <li className="article-item" key={article.id}>
                 <Article
                     article={article}
                     isOpen={article.id === openItemId}

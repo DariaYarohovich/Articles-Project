@@ -1,4 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+
+import './UserForm.css';
 
 class UserForm extends Component {
     state = {
@@ -7,9 +9,9 @@ class UserForm extends Component {
 
     render() {
         return (
-            <div>
-                Username:
-                <input value={this.state.user} onChange={this.handleChange}/>
+            <div className="user-form">
+                <label htmlFor="userName"> Username: </label>
+                <input value={this.state.user} onChange={this.handleChange} name="userName"/>
             </div>
         )
     }

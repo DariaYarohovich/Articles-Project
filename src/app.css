@@ -1,0 +1,40 @@
+:root {
+    --main-theme-color: salmon;
+}
+
+html {
+    min-height: 100vh;
+    font-size: 14px;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#root {
+    height: 100%;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* HEADER START */
+.app__header {
+    background-color: salmon;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+/* MAIN START */
+.main {
+    padding: 20px 0;
+    font-size: 1rem;
+}
