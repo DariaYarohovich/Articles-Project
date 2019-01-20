@@ -5,7 +5,7 @@ import './ArticleItem.css';
 
 class Article extends PureComponent {
     render() {
-        const { article: { title, comments }, isOpen } = this.props;
+        const { article: { title } } = this.props;
 
         return (
             <>

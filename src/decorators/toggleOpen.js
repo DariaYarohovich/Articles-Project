@@ -17,6 +17,6 @@ export default (WrappedComponent) =>
                 {...this.props}
                 {...this.state}
                 handleOpenToggle={this.handleOpenToggle}
-            />;
+            />
         }
     }
