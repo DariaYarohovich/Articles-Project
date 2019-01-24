@@ -1,4 +1,5 @@
 import React from 'react';
+import CSSTransition from 'react-addons-css-transition-group';
 
 import './Comment.css';
 

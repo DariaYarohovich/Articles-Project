@@ -9,3 +9,28 @@
 .article-item__title:hover {
     color: var(--main-theme-color);
 }
+
+/*Animation BODY*/
+.article-item__body-enter {
+    position: relative;
+    top: -30px;
+    opacity: 0;
+}
+
+.article-item__body-enter.article-item__body-enter-active {
+    opacity: 1;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.article-item__body-leave {
+    position: relative;
+    top: 0;
+    opacity: 1;
+}
+
+.article-item__body-leave.article-item__body-leave-active {
+    top: -30px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
