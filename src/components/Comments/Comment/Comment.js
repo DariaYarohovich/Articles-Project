@@ -1,15 +1,24 @@
 import React from 'react';
-import CSSTransition from 'react-addons-css-transition-group';
+import { commentType } from '../../../types/index';
 
 import './Comment.css';
 
-const comment = (props) => {
+const Comment = (props) => {
+    const {
+        user,
+        text
+    } = props.comment;
+
     return (
         <article className="comment-item">
-            <p className="comment-item__user">{props.user}</p>
-            <p className="comment-text">{props.text}</p>
+            <p className="comment-item__user">{user}</p>
+            <p className="comment-text">{text}</p>
         </article>
     );
 }
 
-export default comment;
+Comment.propTypes = {
+    comment: commentType
+}
+
+export default Comment;

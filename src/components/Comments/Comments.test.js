@@ -1,11 +1,7 @@
 import React from 'react';
-import Enzyme, {render, mount, shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {render, mount} from 'enzyme';
 import Comments from './Comments';
 import Comment from './Comment/Comment';
-import { toggleOpen } from '../../decorators/toggleOpen';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const mockComment = [
     {
@@ -16,9 +12,6 @@ const mockComment = [
 ];
 
 describe('Comments list', function() {
-    it('should render', () => {
-        const wrapper = render(<Comments />);
-    });
 
     it('should display button if there is at least 1 comment', function() {
         const wrapper = mount(<Comments comments={mockComment}/>);

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import Article from './ArticleItem/ArticleItem';
+import Article from './ArticleItem/index';
 import accordion from '../../decorators/accordion';
+import PropTypes from 'prop-types';
+import { articleType } from '../../types/index';
 
 import './ArticleList.css';
 
@@ -28,6 +30,12 @@ class ArticleList extends Component{
             </li>
         ))
     }
+}
+
+ArticleList.propTypes = {
+    articles: PropTypes.arrayOf(articleType),
+    openItemId: PropTypes.string,
+    toggleArticle: PropTypes.func
 }
 
 export default accordion(ArticleList)

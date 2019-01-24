@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import Comment from './Comment/Comment';
+import Comment from './Comment/index';
 import toggleOpen from '../../decorators/toggleOpen';
 import CSSTransition from 'react-addons-css-transition-group';
+import PropTypes from 'prop-types';
+import { commentType } from '../../types/index';
 
 import './Comments.css';
 
@@ -30,17 +32,26 @@ class Comments extends Component {
     }
 
     get comments() {
-        if (!this.props.opened) return null;
+        const { 
+            comments, 
+            opened 
+        } = this.props;
 
-        const { comments } = this.props;
+        if (!opened) return null;
         return (
             <div className="comments__body">
                 {comments.map(comment => (
-                    <Comment key={comment.id} {...comment} />
+                    <Comment key={comment.id} comment={comment} />
                 ))}
             </div>
         )
     }
+}
+
+Comments.propTypes = {
+    comments: PropTypes.arrayOf(commentType),
+    opened: PropTypes.bool,
+    handleOpenToggle: PropTypes.func
 }
 
 export default toggleOpen(Comments);
