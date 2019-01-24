@@ -10,3 +10,28 @@
     margin-bottom: 5px;
     font-weight: 700;
 }
+
+/*Animation BODY*/
+/* .comment-item__body-enter {
+    position: relative;
+    top: -30px;
+    opacity: 0;
+}
+
+.comment-item__body-enter.comment-item__body-enter-active {
+    opacity: 1;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.comment-item__body-leave {
+    position: relative;
+    opacity: 1;
+    top: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.comment-item__body-leave.comment-item__body-leave-active {
+    opacity: 0;
+    top: -30px;
+} */

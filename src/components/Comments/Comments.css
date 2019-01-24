@@ -5,4 +5,30 @@
     border-radius: 5px;
     color: #ffffff;
     font-weight: 700;
+    cursor: pointer;
+}
+
+/*Animation BODY*/
+.comments__body-enter {
+    position: relative;
+    top: -15px;
+    opacity: 0;
+}
+
+.comments__body-enter.comments__body-enter-active {
+    opacity: 1;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.comments__body-leave {
+    position: relative;
+    opacity: 1;
+    top: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.comments__body-leave.comments__body-leave-active {
+    opacity: 0;
+    top: -15px;
 }

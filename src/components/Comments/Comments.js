@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import Comment from './Comment/Comment';
+import Comment from './Comment/index';
 import toggleOpen from '../../decorators/toggleOpen';
+import CSSTransition from 'react-addons-css-transition-group';
+import PropTypes from 'prop-types';
+import { commentType } from '../../types/index';
 
 import './Comments.css';
 
@@ -14,7 +17,13 @@ class Comments extends Component {
             comments = (
                 <>
                 <button className="comments__button" onClick={this.props.handleOpenToggle}>{buttonText}</button>
-                <section className="comments__list">{this.comments}</section>
+                <CSSTransition
+                    transitionName="comments__body"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={500}
+                >
+                    {this.comments}
+                </CSSTransition>
                 </>
             )
         }
@@ -23,13 +32,26 @@ class Comments extends Component {
     }
 
     get comments() {
-        if (!this.props.opened) return null;
+        const { 
+            comments, 
+            opened 
+        } = this.props;
 
-        const { comments } = this.props;
-        return comments.map(comment => (
-            <Comment key={comment.id} {...comment} />
-        ))
+        if (!opened) return null;
+        return (
+            <div className="comments__body">
+                {comments.map(comment => (
+                    <Comment key={comment.id} comment={comment} />
+                ))}
+            </div>
+        )
     }
+}
+
+Comments.propTypes = {
+    comments: PropTypes.arrayOf(commentType),
+    opened: PropTypes.bool,
+    handleOpenToggle: PropTypes.func
 }
 
 export default toggleOpen(Comments);
