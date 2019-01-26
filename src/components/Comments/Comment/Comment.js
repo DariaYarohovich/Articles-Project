@@ -1,5 +1,5 @@
 import React from 'react';
-import { commentType } from '../../../types/index';
+import { commentType } from '../../../types';
 
 import './Comment.css';
 

@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
+import { connect } from "react-redux";
+import {
+    changeStartDate,
+    changeEndDate
+} from "../../actionCreators";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./Datepicker.css";
@@ -7,57 +12,75 @@ import "./Datepicker.css";
 class DatepickerComp extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            startDate: new Date(),
-            endDate: new Date()
-        };
         this.handleChangeStart = this.handleChangeStart.bind(this);
         this.handleChangeEnd = this.handleChangeEnd.bind(this);
     }
 
-    handleChangeStart(date) {
-        this.setState({
-            startDate: date
-        });
-
-        if (date > this.state.endDate) {
-            this.handleChangeEnd(date);
-        }
-    }
-
-    handleChangeEnd(date) {
-        this.setState({
-            endDate: date
-        });
-
-        if (date < this.state.startDate) {
-            this.handleChangeStart(date);
-        }
-    }
-
     render() {
+        const {
+            startDate,
+            endDate
+        } = this.props;
+
         return (
             <div className="datepicker">
                 <DatePicker
                     className="datepicker__item"
-                    selected={this.state.startDate}
+                    selected={startDate}
                     selectsStart
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
+                    startDate={startDate}
+                    endDate={endDate}
                     onChange={this.handleChangeStart}
                 />
 
                 <DatePicker
                     className="datepicker__item"
-                    selected={this.state.endDate}
+                    selected={endDate}
                     selectsEnd
-                    startDate={this.state.startDate}
-                    endDate={this.state.endDate}
+                    startDate={startDate}
+                    endDate={endDate}
                     onChange={this.handleChangeEnd}
                 />
             </div>
         )
     }
+
+    handleChangeStart(date) {
+        const {
+            endDate,
+            dispatchChangeEndDate,
+            dispatchChangeStartDate
+        } = this.props;
+
+        dispatchChangeStartDate(date);
+
+        if (date > endDate && endDate) {
+            dispatchChangeEndDate(date);
+        }
+    }
+
+    handleChangeEnd(date) {
+        const {
+            startDate,
+            dispatchChangeEndDate,
+            dispatchChangeStartDate
+        } = this.props;
+
+        dispatchChangeEndDate(date);
+
+        if (date < startDate && startDate) {
+            dispatchChangeStartDate(date);
+        }
+    }
 }
 
-export default DatepickerComp;
+export default connect(
+    store => ({
+        startDate: store.filters.startDate,
+        endDate: store.filters.endDate
+    }),
+    dispatch => ({
+        dispatchChangeStartDate: (newDate) => dispatch(changeStartDate(newDate)),
+        dispatchChangeEndDate: (newDate) => dispatch(changeEndDate(newDate))
+    })
+)(DatepickerComp);

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Comment from './Comment/index';
+import Comment from './Comment';
 import toggleOpen from '../../decorators/toggleOpen';
 import CSSTransition from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
-import { commentType } from '../../types/index';
+import { commentType } from '../../types';
 
 import './Comments.css';
 
