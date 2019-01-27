@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { deleteArticle } from '../../../actionCreators';
 import Comments from '../../Comments';
+import { CommentForm } from '../../Comments';
 import CSSTransition from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
 import { articleType } from '../../../types';
@@ -15,7 +16,7 @@ class Article extends PureComponent {
         return (
             <>
             <button className="article-item__title" type="button" onClick={this.toggleOpen}>{title}</button>
-            <button className="article-item__delete" type="button" onClick={this.deleteArticle}>Delete</button>
+            <button className="article-item__delete" type="button" onClick={this.deleteArticle}></button>
             <CSSTransition
                 transitionName="article-item__container"
                 transitionEnterTimeout={300}
@@ -37,10 +38,17 @@ class Article extends PureComponent {
 
     get body() {
         if (!this.props.isOpen) return null;
+        const {
+            text,
+            id,
+            comments
+        } = this.props.article;
+
         return (
             <article className="article-item__body">
-                <p>{this.props.article.text}</p>
-                <Comments comments={this.props.article.comments} />
+                <p>{text}</p>
+                <CommentForm articleId={id} />
+                <Comments comments={comments} />
             </article>
         )
     }

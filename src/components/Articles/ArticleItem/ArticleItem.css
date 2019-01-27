@@ -34,3 +34,32 @@
     opacity: 0;
     transition: all 0.5s ease-in-out;
 }
+
+.article-item__delete {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.article-item__delete::before,
+.article-item__delete::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: var(--main-theme-color);
+}
+
+.article-item__delete::before {
+    transform: rotate(45deg);
+}
+
+.article-item__delete::after {
+    transform: rotate(-45deg);
+}

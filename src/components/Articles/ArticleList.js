@@ -4,6 +4,7 @@ import Article from './ArticleItem';
 import accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import { articleType } from '../../types';
+import { filteredArticlesSelector } from '../../selectors';
 
 import './ArticleList.css';
 
@@ -13,55 +14,24 @@ class ArticleList extends Component {
             <ul className="article-list">{this.articles}</ul>
         );
     }
-    
+
     get articles() {
         const {
             openItemId,
             toggleOpenArticle,
-            ariclesFromStore,
-            startDate,
-            endDate,
-            selectedTitles
+            ariclesFromStore
         } = this.props
 
-        return ariclesFromStore
-        .filter(this.filterArticles({startDate: startDate, endDate: endDate, selectedTitles: selectedTitles}))
-        .map(article => (
-            <li className="article-item" key={article.id}>
+        return Object.keys(ariclesFromStore).map(id => (
+            <li className="article-item" key={id}>
                 <Article
-                    article={article}
-                    isOpen={article.id === openItemId}
+                    article={ariclesFromStore[id]}
+                    isOpen={ariclesFromStore[id].id === openItemId}
                     toggleArticle={toggleOpenArticle}
                 />
             </li>
         ))
     }
-
-    filterArticles = (filters) => (elem) => {
-        const {
-            startDate,
-            endDate,
-            selectedTitles
-        } = filters;
-
-        let titleIsValid = true;
-        let startDateIsValid = true;
-        let endDateIsVaid = true;
-
-        if (selectedTitles && selectedTitles.length) {
-            titleIsValid = selectedTitles.filter(title => title.value === elem.id).length === 1;
-        }
-
-        if (startDate) {
-            startDateIsValid = new Date(elem.date) >= startDate;
-        }
-
-        if (endDate) {
-            endDateIsVaid = new Date(elem.date) <= endDate;
-        }
-
-        return titleIsValid && startDateIsValid && endDateIsVaid;
-    } 
 }
 
 ArticleList.propTypes = {
@@ -71,10 +41,7 @@ ArticleList.propTypes = {
 }
 
 export default connect(
-    store => ({ 
-        ariclesFromStore: store.articles,
-        startDate: store.filters.startDate,
-        endDate: store.filters.endDate,
-        selectedTitles: store.filters.selectedTitles
+    store => ({
+        ariclesFromStore: filteredArticlesSelector(store)
     })
 )(accordion(ArticleList));

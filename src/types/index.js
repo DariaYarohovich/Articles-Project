@@ -1,7 +1,6 @@
 import { string, shape, arrayOf } from 'prop-types';
 
-export const commentType = shape({
-    id: string,
+export const commentInstanceType = shape({
     user: string,
     text: string
 });
@@ -11,5 +10,5 @@ export const articleType = shape({
     date: string,
     title: string,
     text: string,
-    comments: arrayOf(commentType)
+    comments: arrayOf(string)
 });

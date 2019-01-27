@@ -3,6 +3,8 @@ import ArticleList from './components/Articles';
 import UserForm from './components/UserForm/UserForm';
 import Select from './components/Select/Select';
 import Datepicker from './components/Datepicker/Datepicker';
+import Counter from './components/Counter';
+
 import PropTypes from 'prop-types';
 import { articleType } from './types';
 
@@ -21,8 +23,9 @@ class App extends Component {
                 </div>
                 <div className="app__main">
                     <div className="main container">
+                        <Counter />
                         <Select />
-                        <ArticleList/>
+                        <ArticleList />
                     </div>
                 </div>
             </div>

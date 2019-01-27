@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { changeSelectedTitle } from '../../actionCreators';
-
 import Select from 'react-select';
+import { filteredArticlesSelector } from '../../selectors';
 
 class SelectComp extends Component {
     render() {
@@ -21,19 +21,21 @@ class SelectComp extends Component {
     }
 
     get options() {
-        return this.props.articlesFromStore.map(article => ({
-            value: article.id,
-            label: article.title
+        const { articlesFromStore } = this.props;
+
+        return Object.keys(articlesFromStore).map(id => ({
+            value: articlesFromStore[id].id,
+            label: articlesFromStore[id].title
         }))
     }
 }
 
 export default connect(
-    store => ({ 
-        articlesFromStore: store.articles,
+    store => ({
+        articlesFromStore: filteredArticlesSelector(store),
         filters: store.filters
-     }),
-    dispath => ({ 
+    }),
+    dispath => ({
         dispatchChangeTitle: (title) => dispath(changeSelectedTitle(title))
     })
 )(SelectComp);
