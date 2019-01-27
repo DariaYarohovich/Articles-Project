@@ -1,31 +1,41 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import { changeSelectedTitle } from '../../actionCreators';
 import Select from 'react-select';
+import { filteredArticlesSelector } from '../../selectors';
 
 class SelectComp extends Component {
-    state = {
-        selected: null
-    }
-
     render() {
         return (
             <Select
                 isMulti={true}
                 options={this.options}
-                value={this.state.selected}
+                value={this.props.filters.selectedTitles}
                 onChange={this.handleSelectChange}
             />
         )
     }
 
-    handleSelectChange = (selected) => this.setState({ selected })
+    handleSelectChange = (selected) => {
+        this.props.dispatchChangeTitle(selected)
+    }
 
     get options() {
-        return this.props.articles.map(article => ({
-            value: article.id,
-            label: article.title
+        const { articlesFromStore } = this.props;
+
+        return Object.keys(articlesFromStore).map(id => ({
+            value: articlesFromStore[id].id,
+            label: articlesFromStore[id].title
         }))
     }
 }
 
-export default SelectComp;
+export default connect(
+    store => ({
+        articlesFromStore: filteredArticlesSelector(store),
+        filters: store.filters
+    }),
+    dispath => ({
+        dispatchChangeTitle: (title) => dispath(changeSelectedTitle(title))
+    })
+)(SelectComp);

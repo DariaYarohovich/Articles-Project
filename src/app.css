@@ -38,3 +38,20 @@ body {
     padding: 20px 0;
     font-size: 1rem;
 }
+
+@media (max-width: 1200px) {
+    .container {
+        width: 860px;
+    }
+}
+
+@media (max-width: 900px) {
+    .container {
+        width: 80%;
+    }
+
+    /* HEADER START */
+    .header {
+        flex-wrap: wrap;
+    }
+}

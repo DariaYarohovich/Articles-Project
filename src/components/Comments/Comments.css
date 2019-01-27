@@ -1,11 +1,15 @@
 .comments__button {
-    padding: 3px 5px;
+    padding: 5px 10px;
     background-color: var(--main-theme-color);
     border: none;
     border-radius: 5px;
     color: #ffffff;
     font-weight: 700;
     cursor: pointer;
+}
+
+.comments__button:not(:first-of-type) {
+    margin-left: 10px;
 }
 
 /*Animation BODY*/
