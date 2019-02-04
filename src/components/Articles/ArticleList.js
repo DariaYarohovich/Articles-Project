@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Article from './ArticleItem';
+import Loader from '../Loader';
 import accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
-import { articleType } from '../../types';
-import { filteredArticlesSelector } from '../../selectors';
+import { filteredArticlesSelector, loadingSelector } from '../../selectors';
+import { loadArticles } from '../../actionCreators';
 
 import './ArticleList.css';
 
 class ArticleList extends Component {
     render() {
+        const { loading } = this.props;
+
         return (
-            <ul className="article-list">{this.articles}</ul>
+            loading ? <Loader /> : <ul className="article-list">{this.articles}</ul>
         );
+    }
+
+    componentDidMount() {
+        !this.props.loaded && this.props.fetchData && this.props.fetchData();
     }
 
     get articles() {
@@ -35,13 +42,18 @@ class ArticleList extends Component {
 }
 
 ArticleList.propTypes = {
-    ariclesFromStore: PropTypes.arrayOf(articleType),
+    ariclesFromStore: PropTypes.array,
     openItemId: PropTypes.string,
     toggleArticle: PropTypes.func
 }
 
 export default connect(
     store => ({
-        ariclesFromStore: filteredArticlesSelector(store)
-    })
+        ariclesFromStore: filteredArticlesSelector(store),
+        loading: loadingSelector(store),
+        loaded: loadingSelector(store)
+    }),
+    {
+        fetchData: loadArticles
+    }
 )(accordion(ArticleList));

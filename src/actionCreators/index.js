@@ -5,8 +5,12 @@ import {
     CHANGE_SELECTED_TITLE,
     INCREMENT_COUNTER,
     ADD_COMMENT,
-    ADD_COMMENT_WITH_ID,
-    ADD_COMMENT_ID_IN_ARTICLE
+    LOAD_ALL_ARTICLES,
+    LOAD_ARTICLE,
+    LOAD_COMMENTS,
+    START,
+    SUCCESS,
+    FAIL
 } from '../constants';
 
 export const deleteArticle = (id) => ({
@@ -40,20 +44,79 @@ export const increment = () => {
 export const addComment = (newComment, articleId) => {
     return {
         type: ADD_COMMENT,
-        payload: {newComment, articleId}
+        payload: { newComment, articleId },
+        generateId: true
     }
 }
 
-export const addCommentWithId = (newCommentWithId) => {
-    return {
-        type: ADD_COMMENT_WITH_ID,
-        payload: newCommentWithId
+export const loadArticles = () => {
+    return dispatch => {
+        dispatch({
+            type: LOAD_ALL_ARTICLES + START
+        })
+        fetch('/api/article')
+            .then(res => res.json())
+            .then(response => {
+                dispatch({
+                    type: LOAD_ALL_ARTICLES + SUCCESS,
+                    response
+                })
+            })
+            .catch(error => {
+                dispatch({
+                    type: LOAD_ALL_ARTICLES + FAIL,
+                    error
+                })
+            })
     }
 }
 
-export const addCommentIdInArticle = (articleId, newCommentId) => {
-    return {
-        type: ADD_COMMENT_ID_IN_ARTICLE,
-        payload: {articleId, newCommentId}
+export const loadArticle = (id) => {
+    return dispatch => {
+        dispatch({
+            type: LOAD_ARTICLE + START,
+            payload: { id }
+        })
+        fetch(`/api/article/${id}`)
+            .then(res => res.json())
+            .then(response => {
+                dispatch({
+                    type: LOAD_ARTICLE + SUCCESS,
+                    payload: { id },
+                    response
+                })
+            })
+            .catch(error => {
+                dispatch({
+                    type: LOAD_ARTICLE + FAIL,
+                    payload: { id },
+                    error
+                })
+            })
+    }
+}
+
+export const loadComments = (id) => {
+    return dispatch => {
+        dispatch({
+            type: LOAD_COMMENTS + START,
+            payload: { id }
+        })
+        fetch(`/api/comment?article=${id}`)
+            .then(res => res.json())
+            .then(response => {
+                dispatch({
+                    type: LOAD_COMMENTS + SUCCESS,
+                    payload: { id },
+                    response
+                })
+            })
+            .catch(error => {
+                dispatch({
+                    type: LOAD_COMMENTS + FAIL,
+                    payload: { id },
+                    error
+                })
+            })
     }
 }
