@@ -35,6 +35,18 @@
     transition: all 0.5s ease-in-out;
 }
 
+.article-item__container-appear {
+    position: relative;
+    top: -30px;
+    opacity: 0;
+}
+  
+.article-item__container-appear.article-item__container-appear-active {
+    opacity: 1;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
 .article-item__delete {
     position: relative;
     width: 10px;

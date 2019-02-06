@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { changeSelectedTitle } from '../../actionCreators';
 import Select from 'react-select';
-import { filteredArticlesSelector } from '../../selectors';
+import { filteredArticlesSelector, filtersSelector } from '../../selectors';
 
 class SelectComp extends Component {
     render() {
@@ -10,7 +10,7 @@ class SelectComp extends Component {
             <Select
                 isMulti={true}
                 options={this.options}
-                value={this.props.filters.selectedTitles}
+                value={this.props.selectedOptions}
                 onChange={this.handleSelectChange}
             />
         )
@@ -33,7 +33,7 @@ class SelectComp extends Component {
 export default connect(
     store => ({
         articlesFromStore: filteredArticlesSelector(store),
-        filters: store.filters
+        selectedOptions: filtersSelector(store).selectedTitles
     }),
     dispath => ({
         dispatchChangeTitle: (title) => dispath(changeSelectedTitle(title))

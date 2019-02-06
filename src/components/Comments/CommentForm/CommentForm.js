@@ -74,16 +74,11 @@ class CommentForm extends Component {
             user,
             text
         } = this.state;
-
-        const {
-            dispatchAddComment,
-            articleId
-        } = this.props;
-
-        dispatchAddComment({
+        
+        this.props.dispatchAddComment({
             user: user,
             text: text
-        }, articleId);
+        });
         this.handleFormOpen();
     }
 }
@@ -94,5 +89,5 @@ CommentForm.propTypes = {
 }
 
 export default connect(null,
-    dispatch => ({ dispatchAddComment: (newComment, articleId) => dispatch(addComment(newComment, articleId)) })
+    (dispatch, ownProps) => ({ dispatchAddComment: (newComment) => dispatch(addComment(newComment, ownProps.articleId)) })
 )(CommentForm);
