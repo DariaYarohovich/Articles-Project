@@ -8,6 +8,7 @@ import {
     commentsPageLoaded
 } from '../../selectors';
 import Comment from '../Comments/Comment';
+import { list as List } from '../common';
 import Loader from '../Loader';
 import CSSTransition from 'react-addons-css-transition-group';
 import { NavLink } from 'react-router-dom';
@@ -35,7 +36,7 @@ class CommentsList extends Component {
                         transitionAppear={true}
                         transitionAppearTimeout={500}
                     >
-                        {loading ? <Loader key="paginationLoader" /> : this.comments}
+                        {loading ? <Loader key="paginationLoader" /> : this.getComments()}
                     </CSSTransition>
                 </div>
                 <div className="commentsPage__paging">{this.paging}</div>
@@ -44,24 +45,25 @@ class CommentsList extends Component {
     }
 
     componentDidMount() {
-        console.log('MOUNT');
         const { countPerPage } = this.state;
         const { page, loaded } = this.props;
         !loaded && this.props.dispatchFetchComments && this.props.dispatchFetchComments(page, countPerPage, (page - 1) * countPerPage);
     }
 
-    componentDidUpdate() {
-        console.log('UPDATE');
-    }
-
-    get comments() {
+    getComments = () => {
         if (!this.props.commentsPage) return null;
 
-        return this.props.commentsPage.map((comment, index) => {
-            return (
-                <Comment key={comment.id} comment={comment} />
-            )
-        })
+        return (
+            <div className="comments__body">
+                <List
+                    data={this.props.commentsPage}
+                    getComponent={entity => <Comment comment={entity} />}
+                    pathToKey={entity => entity.id}
+                    listCssClass="comments__list"
+                    itemCssClass="comments__list-item"
+                />
+            </div>
+        )
     }
 
     get paging() {

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { articleType } from '../../../types';
 import { deleteArticle, loadArticle } from '../../../actionCreators';
 import ArticleComments from '../ArticleComments';

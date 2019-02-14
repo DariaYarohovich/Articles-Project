@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { list as List } from '../../common';
 import ArticleComment from '../ArticleComment';
 import Loader from '../../Loader';
 import toggleOpen from '../../../decorators/toggleOpen';
@@ -12,7 +13,7 @@ import './ArticleComments.css';
 
 class ArticleComments extends Component {
     render() {
-        
+
         let buttonText = this.props.opened ? "Hide comments -" : "Show comments +";
 
         let comments = null;
@@ -25,7 +26,7 @@ class ArticleComments extends Component {
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={500}
                 >
-                    { this.props.loading ? <Loader /> : this.comments}
+                    {this.props.loading ? <Loader /> : this.comments}
                 </CSSTransition>
                 </>
             )
@@ -38,21 +39,25 @@ class ArticleComments extends Component {
         const { handleOpenToggle, dispatchLoadComments, commentsLoaded } = this.props;
 
         handleOpenToggle();
-        !commentsLoaded &&  dispatchLoadComments && dispatchLoadComments();
+        !commentsLoaded && dispatchLoadComments && dispatchLoadComments();
     }
 
     get comments() {
-        const { 
-            comments, 
-            opened 
+        const {
+            comments,
+            opened
         } = this.props;
 
         if (!opened) return null;
         return (
             <div className="comments__body">
-                {comments.map(id => (
-                    <ArticleComment key={id} id={id} />
-                ))}
+                <List
+                    data={comments}
+                    pathToKey={entity => entity}
+                    getComponent={entity => <ArticleComment id={entity} />}
+                    listCssClass="comments__list"
+                    itemCssClass="comments__list-item"
+                />
             </div>
         )
     }
@@ -70,7 +75,7 @@ export default connect(
         loaded: loadedCommentsSelector(store)
     })
     ,
-    (dispatch, ownProps) => ({ 
+    (dispatch, ownProps) => ({
         dispatchLoadComments: () => dispatch(loadComments(ownProps.articleId))
     })
 )(toggleOpen(ArticleComments));
