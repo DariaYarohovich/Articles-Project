@@ -10,6 +10,12 @@ export const idSelector = (_, ownProps) => ownProps.id;
 export const loadingSelector = store => store.articles.loading;
 export const loadedSelector = store => store.articles.loaded;
 
+export const articleSelector = createSelector(
+    articlesMapSelector,
+    idSelector,
+    (articles, id) => articles.get(id)
+);
+
 export const commentsSelector = store => store.comments.entities;
 export const loadingCommentsSelector = store => store.comments.loading;
 export const loadedCommentsSelector = store => store.comments.loaded;
@@ -52,5 +58,30 @@ export const createCommentSelector = () => createSelector(
     idSelector,
     (comments, id) => {
         return comments.get(id);
+    }
+);
+
+export const commentsPagesSelector = store => store.commentsPagination.pages;
+export const commentsPageTotal = store => store.commentsPagination.total;
+export const pageSelector = (_, ownProps) => ownProps.page;
+export const commentsPageLoading = createSelector(
+    commentsPagesSelector,
+    pageSelector,
+    (pages, currentPage) => {
+        return pages.get(currentPage) ? pages.get(currentPage).loading : null;
+    }
+);
+export const commentsPageLoaded = createSelector(
+    commentsPagesSelector,
+    pageSelector,
+    (pages, currentPage) => {
+        return pages.get(currentPage) ? pages.get(currentPage).loaded : null;
+    }
+);
+export const commentsPageSelector = createSelector(
+    commentsPagesSelector,
+    pageSelector,
+    (pages, currentPage) => {
+        return pages.get(currentPage) ? pages.get(currentPage).entities : null;
     }
 );

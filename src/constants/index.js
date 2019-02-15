@@ -7,6 +7,7 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const LOAD_ALL_ARTICLES = 'LOAD_ALL_ARTICLES';
 export const LOAD_ARTICLE = 'LOAD_ARTICLE';
 export const LOAD_COMMENTS = 'LOAD_COMMENTS';
+export const FETCH_COMMENTS_FOR_PAGINATION = 'FETCH_COMMENTS_FOR_PAGINATION';
 
 export const START = '_START';
 export const SUCCESS = '_SUCCESS';

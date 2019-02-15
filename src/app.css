@@ -33,6 +33,24 @@ body {
     padding: 20px 0;
 }
 
+.navigation {
+    display: flex;
+}
+
+.navigation__item {
+    margin-left: 15px;
+}
+
+.navigation__item a {
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navigation__item a:hover {
+    text-decoration: underline;
+}
+
 /* MAIN START */
 .main {
     padding: 20px 0;

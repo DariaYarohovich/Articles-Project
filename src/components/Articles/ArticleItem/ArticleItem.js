@@ -1,32 +1,34 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { articleType } from '../../../types';
 import { deleteArticle, loadArticle } from '../../../actionCreators';
-import Comments from '../../Comments';
+import ArticleComments from '../ArticleComments';
 import { CommentForm } from '../../Comments';
 import Loader from '../../Loader';
 import CSSTransition from 'react-addons-css-transition-group';
+import { articleSelector } from '../../../selectors';
 
 import './ArticleItem.css';
 
 class Article extends PureComponent {
     render() {
-        const { article: { title, loading } } = this.props;
+        const { article } = this.props;
+
+        if (!article) return null;
 
         return (
             <>
-            <button className="article-item__title" type="button" onClick={this.toggleOpen}>{title}</button>
+            {article.title}
             <button className="article-item__delete" type="button" onClick={this.deleteArticle}></button>
-            {loading ? <Loader /> : this.body}
+            {article.loading ? <Loader key="loader" /> : this.body}
             </>
         )
     }
 
-    componentDidUpdate(oldProps) {
-        const { isOpen, dispatchLoadArticle, article } = this.props;
-        if (!oldProps.isOpen && isOpen && !article.text) {
-            dispatchLoadArticle(article.id);
+    componentDidMount(oldProps) {
+        const { dispatchLoadArticle, article, id } = this.props;
+        if (!article || (!article.text && !article.loading)) {
+            dispatchLoadArticle(id);
         }
     }
 
@@ -40,7 +42,6 @@ class Article extends PureComponent {
 
     get body() {
         const {
-            isOpen,
             article: {
                 text,
                 id,
@@ -57,13 +58,11 @@ class Article extends PureComponent {
                 transitionAppear={true}
                 transitionAppearTimeout={500}
             >
-                {isOpen ?
-                    <article className="article-item__body" key={id}>
-                        <p>{text}</p>
-                        <CommentForm articleId={id} />
-                        <Comments comments={comments} commentsLoaded={commentsLoaded} articleId={id} />
-                    </article> : null
-                }
+                <article className="article-item__body" key={id}>
+                    <p>{text}</p>
+                    <CommentForm articleId={id} />
+                    <ArticleComments comments={comments} commentsLoaded={commentsLoaded} articleId={id} />
+                </article>
 
             </CSSTransition>
         )
@@ -71,12 +70,13 @@ class Article extends PureComponent {
 }
 
 Article.propTypes = {
-    article: articleType.isRequired,
-    isOpen: PropTypes.bool.isRequired,
-    toggleArticle: PropTypes.func.isRequired
+    article: articleType
 }
 
-export default connect(null,
+export default connect(
+    (store, ownProps) => ({
+        article: articleSelector(store, ownProps)
+    }),
     dispatch => ({
         dispatchDeleteArticle: id => dispatch(deleteArticle(id)),
         dispatchLoadArticle: id => dispatch(loadArticle(id))

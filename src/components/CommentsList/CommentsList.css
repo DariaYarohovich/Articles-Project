@@ -1,0 +1,62 @@
+.commentsPage__paging {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.commentsPage__paging-item {
+    margin-right: 5px;
+    border: 1px solid salmon;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.commentsPage__paging-item:hover {
+    background-color: rgba(250, 128, 114, 0.3);
+}
+
+.commentsPage__paging-item a {
+    display: block;
+    padding: 5px;
+    font-weight: 700;
+    color: grey;
+    text-decoration: none;
+}
+
+/* ANIMATION */
+.commentsPage__container-enter {
+    position: relative;
+    top: -30px;
+    opacity: 0;
+}
+
+.commentsPage__container-enter.commentsPage__container-enter-active {
+    opacity: 1;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.commentsPage__container-leave {
+    position: relative;
+    top: 0;
+    opacity: 1;
+}
+
+.commentsPage__container-leave.commentsPage__container-leave-active {
+    top: -30px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.commentsPage__container-appear {
+    position: relative;
+    top: -30px;
+    opacity: 0;
+}
+  
+.commentsPage__container-appear.commentsPage__container-appear-active {
+    opacity: 1;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+}

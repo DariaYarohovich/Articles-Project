@@ -1,40 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { commentInstanceType } from '../../../types';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createCommentSelector } from '../../../selectors';
 
 import './Comment.css';
 
-class Comment extends Component {
+const comment = (props) => {
+    const {
+        user,
+        text
+    } = props.comment;
 
-    render() {
-        const {
-            user,
-            text
-        } = this.props.comment;
+    return (
+        <article className="comment-item">
+            <p className="comment-item__user">{user}</p>
+            <p className="comment-text">{text}</p>
+        </article>
+    );
 
-        return (
-            <article className="comment-item">
-                <p className="comment-item__user">{user}</p>
-                <p className="comment-text">{text}</p>
-            </article>
-        );
-    }
 }
 
 Comment.propTypes = {
-    comment: commentInstanceType,
-    id: PropTypes.string.isRequired
+    comment: commentInstanceType
 }
 
-const mapStateToProps = () => {
-    const createComment = createCommentSelector();
-    return (store, props) => {
-        return {
-            comment: createComment(store, props)
-        }
-    }
-}
-
-export default connect(mapStateToProps)(Comment);
+export default comment;
