@@ -3,6 +3,10 @@ import reducer from '../reducers';
 import thunk from 'redux-thunk';
 import logger from '../middleware/logger';
 import addIdMiddleware from '../middleware/addIdMiddleware';
+import history from '../history';
+import { routerMiddleware } from 'connected-react-router';
+
+console.log(history);
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -13,6 +17,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(
     applyMiddleware(
+        routerMiddleware(history),
         thunk,
         addIdMiddleware,
         logger
@@ -20,7 +25,7 @@ const enhancer = composeEnhancers(
 );
 
 const store = createStore(
-    reducer,
+    reducer(history),
     enhancer
 );
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { commentInstanceType } from '../../../types';
-import PropTypes from 'prop-types';
 
 import './Comment.css';
 

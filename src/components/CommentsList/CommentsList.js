@@ -11,7 +11,7 @@ import Comment from '../Comments/Comment';
 import { list as List } from '../common';
 import Loader from '../Loader';
 import CSSTransition from 'react-addons-css-transition-group';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 
 import './CommentsList.css';
 
@@ -21,10 +21,17 @@ class CommentsList extends Component {
     }
 
     render() {
+        const { countPerPage } = this.state;
+
         const {
             loading,
-            loaded
+            page,
+            total
         } = this.props;
+
+        if (page > total / countPerPage + 1) {
+            return <Redirect to={`/comments/${Math.floor(total / countPerPage) + 1}`} />
+        }
 
         return (
             <div className="commentsPage">
@@ -68,13 +75,7 @@ class CommentsList extends Component {
 
     get paging() {
         const { countPerPage } = this.state;
-
-        const {
-            total,
-            page,
-            paginationClick
-        } = this.props;
-
+        const { total } = this.props;
         const pages = Math.ceil(total / countPerPage);
 
         if (pages < 1) return null;

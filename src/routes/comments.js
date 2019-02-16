@@ -1,27 +1,17 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import CommentsList from '../components/CommentsList';
 
-class CommentsPage extends Component {
-    render() {
-        return (
-            <div>
-                <Switch>
-                    <Route path={'/comments/:page'} component={this.getComments} />
-                    <Route path={'/comments'} component={this.getComments} />
-                </Switch>
-            </div>
-        );
+const CommentsPage = ({ match }) => {
+    if (match.isExact) {
+        return <Redirect to={"/comments/1"} />;
     }
+    return <Route path={"/comments/:page"} component={getComments} />
+};
 
-
-    getComments = ({ match }) => {
-        const { page } = match.params;
-
-        if (!page) this.props.history.push('/comments/1');
-
-        return <CommentsList key={page} page={page} />;
-    }
+const getComments = ({ match }) => {
+    const { page } = match.params;
+    return <CommentsList key={page} page={page} />;
 }
 
 export default CommentsPage;
