@@ -27,8 +27,8 @@ class ArticleList extends Component {
             ariclesFromStore
         } = this.props
 
-        return ariclesFromStore.map(article => (
-            <li className="article-item" key={article.id}>
+        return ariclesFromStore.map((article, index) => (
+            <li className="article-item" key={`${article.id}_${index}`}>
                 <NavLink to={`/articles/${article.id}`} activeStyle={{ fontWeight: 700 }}>{article.title}</NavLink>
             </li>
         ))
