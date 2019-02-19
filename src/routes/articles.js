@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import ArticleList from '../components/Articles/';
 import Article from '../components/Articles/ArticleItem';
+import { Consumer as DictionaryConsumer } from '../contexts/dictionary';
 
 class ArticlesPage extends Component {
     render() {
@@ -15,7 +16,11 @@ class ArticlesPage extends Component {
 
     getArticle = ({ match }) => {
         if (match === null) {
-            return <h2>Please, select an article</h2>;
+            return (
+                <DictionaryConsumer>
+                    {value => <h2>{value.selectArticle}</h2>}
+                </DictionaryConsumer>
+            );
         }
 
         return <Article key={match.params.id} id={match.params.id} />
