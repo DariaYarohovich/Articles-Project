@@ -1,0 +1,16 @@
+.common__btn {
+    padding: 5px;
+    background-color: #ffffff;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #7b7b7b;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.common__btn_active {
+    cursor: default;
+    background-color: #7b7b7b;
+    color: #ffffff
+}

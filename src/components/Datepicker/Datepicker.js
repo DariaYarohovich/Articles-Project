@@ -24,6 +24,7 @@ class DatepickerComp extends Component {
 
         return (
             <div className="datepicker">
+                <h3 className="datepicker__title">Dates</h3>
                 <DatePicker
                     className="datepicker__item"
                     selected={startDate}

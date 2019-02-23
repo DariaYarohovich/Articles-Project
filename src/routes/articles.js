@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import ArticleList from '../components/Articles/';
 import Article from '../components/Articles/ArticleItem';
-import { Consumer as DictionaryConsumer } from '../contexts/dictionary';
+import langConsumer from '../components/i18n/lang-consumer';
 
 class ArticlesPage extends Component {
     render() {
@@ -15,16 +15,14 @@ class ArticlesPage extends Component {
     }
 
     getArticle = ({ match }) => {
+        const { t } = this.props;
+        
         if (match === null) {
-            return (
-                <DictionaryConsumer>
-                    {value => <h2>{value.selectArticle}</h2>}
-                </DictionaryConsumer>
-            );
+            return  <h2>{t('selectArticle')}</h2>;
         }
 
         return <Article key={match.params.id} id={match.params.id} />
     }
 }
 
-export default ArticlesPage;
+export default langConsumer(ArticlesPage);

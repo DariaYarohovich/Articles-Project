@@ -4,15 +4,20 @@ import { changeSelectedTitle } from '../../actionCreators';
 import Select from 'react-select';
 import { filteredArticlesSelector, filtersSelector } from '../../selectors';
 
+import './Select.css';
+
 class SelectComp extends Component {
     render() {
         return (
-            <Select
-                isMulti={true}
-                options={this.options}
-                value={this.props.selectedOptions}
-                onChange={this.handleSelectChange}
-            />
+            <div className="select">
+                <h3 className="select__title">Article title</h3>
+                <Select
+                    isMulti={true}
+                    options={this.options}
+                    value={this.props.selectedOptions}
+                    onChange={this.handleSelectChange}
+                />
+            </div>
         )
     }
 

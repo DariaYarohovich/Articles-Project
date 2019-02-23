@@ -1,15 +1,17 @@
 .datepicker {
     display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-.react-datepicker-wrapper:not(:first-child) {
+.react-datepicker-wrapper:not(:first-of-type) {
     margin-left: 20px;
 }
 
 .datepicker__item {
-    padding: 5px 10px;
+    padding: 10px;
     border-radius: 5px;
-    border: none;
+    border: 1px solid salmon;
 }
 
 .react-datepicker__day--selected, 
@@ -20,4 +22,14 @@
 
 .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range) {
     background-color: rgba(250, 128, 114, 0.6);
+}
+
+.datepicker__title {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #7b7b7b;
 }
